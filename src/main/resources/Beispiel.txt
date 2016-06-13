@@ -1,0 +1,17 @@
+{
+	x := 1;
+	y := true;
+	ch := newChannel;
+	
+	go { 
+		while y {
+			ch <- 1
+		}
+	};
+	  
+	z := 1 + 2 * 3 + (4 * 5 + 6);
+	  
+	while y {
+		<-ch
+	}
+}
