@@ -5,7 +5,7 @@ package de.wernet.minigosemantics.antlr;
  */
 public class Main {
 
-    public void main(String []args){
+    public static void main(String []args){
         System.out.println("Start parsing the file:");
 
         MyMiniGoListener listener = new MyMiniGoListener();
