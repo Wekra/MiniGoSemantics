@@ -1,8 +1,8 @@
-package de.wernet.minigosemantics.antlr;
+package de.wernet.minigosemantics;
 
-import de.wernet.miniGoSemantics.antlr.MiniGoBaseListener;
-import de.wernet.miniGoSemantics.antlr.MiniGoLexer;
-import de.wernet.miniGoSemantics.antlr.MiniGoParser;
+import de.wernet.minigosemantics.antlr.MiniGoBaseListener;
+import de.wernet.minigosemantics.antlr.MiniGoLexer;
+import de.wernet.minigosemantics.antlr.MiniGoParser;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
@@ -19,9 +19,12 @@ public class MyMiniGoListener extends MiniGoBaseListener {
         System.out.println(ctx.getText());
     }
 
-    protected void printFile(){
+    protected void printFile(String pathToFile){
         try {
-            MiniGoLexer lexer = new MiniGoLexer(new ANTLRFileStream("Beispiel.txt"));
+
+            ANTLRFileStream file = new ANTLRFileStream(pathToFile);
+
+            MiniGoLexer lexer = new MiniGoLexer(file);
 
             CommonTokenStream tokens = new CommonTokenStream(lexer);
 

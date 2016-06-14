@@ -1,4 +1,4 @@
-package de.wernet.minigosemantics.antlr;
+package de.wernet.minigosemantics;
 
 /**
  * Created by Christian on 13.06.2016.
@@ -10,6 +10,8 @@ public class Main {
 
         MyMiniGoListener listener = new MyMiniGoListener();
 
-        listener.printFile();
+        listener.printFile(args[0]);
+
+        System.out.println("Parsing successfully finished.");
     }
 }
