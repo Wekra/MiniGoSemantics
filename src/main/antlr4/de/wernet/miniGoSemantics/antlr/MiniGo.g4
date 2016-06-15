@@ -9,15 +9,17 @@ statement : statement ';' statement
 			| '<-' vars
 			| vars ':=' bexp
 			| vars ':=' 'newChannel'
+			| vars ':=' '<-' vars
 			| vars '=' bexp
 			| 'while' bexp block
+			| 'if' bexp block 'else' block
 			| 'print' aexp ;
 bexp : cexp ( '&&' cexp )* ;
 cexp : cterm | cterm '==' cterm ;
 cterm : aexp | aexp '>' aexp ;
 aexp : term ( '+' term | '-' term )* ;
 term : factor ( '*' factor | '/' factor )* ;
-factor :  ints | bools | vars | '<-' vars | '!' factor | '(' bexp ')' ;
+factor :  ints | bools | vars | '!' factor | '(' bexp ')' ;
 //digit : '0'..'9' ;
 ints :  DIGIT (DIGIT)* ;
 bools : 'true' | 'false' ;
