@@ -10,6 +10,8 @@ public class Main {
 
         MyMiniGoListener listener = new MyMiniGoListener();
 
+//        System.out.println(args[0]);
+
         listener.printFile(args[0]);
 
         System.out.println("Parsing successfully finished.");

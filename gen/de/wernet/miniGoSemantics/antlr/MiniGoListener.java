@@ -1,5 +1,5 @@
-// Generated from C:/Workspaces/IntelliJ_Workspace/MiniGoSemantics/src/main/antlr4/de/wernet/miniGoSemantics/antlr\MiniGo.g4 by ANTLR 4.5.3
-package de.wernet.miniGoSemantics.antlr;
+// Generated from C:/Workspaces/IntelliJ_Workspace/MiniGoSemantics/src/main/antlr4/de/wernet/minigosemantics/antlr\MiniGo.g4 by ANTLR 4.5.3
+package de.wernet.minigosemantics.antlr;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
