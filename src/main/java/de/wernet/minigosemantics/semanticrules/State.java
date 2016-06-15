@@ -1,7 +1,6 @@
 package de.wernet.minigosemantics.semanticrules;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Christian on 15.06.2016.
@@ -26,8 +25,8 @@ public class State {
         variables.put(variableName, variable);
     }
 
-//    public void getVariable(String name){
-//        variables.in
-//    }
+    public Variable getVariable(String name){
+        return variables.get(name);
+    }
 }
 
