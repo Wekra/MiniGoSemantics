@@ -25,6 +25,9 @@ public class Main {
 //
 //        System.out.println("Parsing successfully finished.");
 
+//        ExpressionParser expressionParser = new ExpressionParser();
+//        expressionParser.parse(args[0]);
+
             // TODO code application logic here
             //SymbolTable table = new SymbolTable();
             try {

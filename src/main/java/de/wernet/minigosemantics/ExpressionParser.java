@@ -2,8 +2,11 @@ package de.wernet.minigosemantics;
 
 import de.wernet.minigosemantics.antlr.MiniGoParser;
 import de.wernet.minigosemantics.antlr.MiniGoLexer;
+import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+
+import java.io.IOException;
 
 /**
  * Created by Christian on 13.06.2016.
@@ -20,7 +23,8 @@ public class ExpressionParser {
         /*
          * Create a lexer that reads from our expression string
          */
-        final MiniGoLexer lexer = new MiniGoLexer(new ANTLRInputStream(expression));
+        try {
+            final MiniGoLexer lexer = new MiniGoLexer(new ANTLRFileStream(expression));
 
 
         /*
@@ -28,18 +32,22 @@ public class ExpressionParser {
          * tokens are consumed by the parser that then builds an Abstract
          * Syntax Tree.
          */
-        final CommonTokenStream tokens = new CommonTokenStream(lexer);
-        final MiniGoParser parser = new MiniGoParser(tokens);
+            final CommonTokenStream tokens = new CommonTokenStream(lexer);
+            final MiniGoParser parser = new MiniGoParser(tokens);
 
         /*
          * The ExprContext is the root of our Abstract Syntax Tree
          */
-        final MiniGoParser.ProgContext context = parser.prog();
+            final MiniGoParser.ProgContext context = parser.prog();
 
         /*
          * 'Visit' all the branches of the tree to get our expression result.
          */
-        return visit(context);
+            return visit(context);
+        }catch(IOException e){
+            System.out.println("boing");
+            return 0;
+        }
     }
 
     /*
@@ -67,6 +75,7 @@ public class ExpressionParser {
 //    }
 
     private int visit(MiniGoParser.ProgContext context){
+        System.out.println(context.block().statement().getRuleContext().toStringTree());
         return 1;
     }
 
