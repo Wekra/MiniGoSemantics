@@ -182,45 +182,246 @@ public class MiniGoParser extends Parser {
 	}
 
 	public static class StatementContext extends ParserRuleContext {
+		public StatementContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_statement; }
+	 
+		public StatementContext() { }
+		public void copyFrom(StatementContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class PrintContext extends StatementContext {
+		public AexpContext aexp() {
+			return getRuleContext(AexpContext.class,0);
+		}
+		public PrintContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterPrint(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitPrint(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitPrint(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class IfElseContext extends StatementContext {
+		public BexpContext bexp() {
+			return getRuleContext(BexpContext.class,0);
+		}
 		public List<BlockContext> block() {
 			return getRuleContexts(BlockContext.class);
 		}
 		public BlockContext block(int i) {
 			return getRuleContext(BlockContext.class,i);
 		}
-		public List<VarsContext> vars() {
-			return getRuleContexts(VarsContext.class);
+		public IfElseContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterIfElse(this);
 		}
-		public VarsContext vars(int i) {
-			return getRuleContext(VarsContext.class,i);
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitIfElse(this);
 		}
-		public AexpContext aexp() {
-			return getRuleContext(AexpContext.class,0);
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitIfElse(this);
+			else return visitor.visitChildren(this);
 		}
-		public BexpContext bexp() {
-			return getRuleContext(BexpContext.class,0);
+	}
+	public static class ChannelDeclarationContext extends StatementContext {
+		public VarsContext vars() {
+			return getRuleContext(VarsContext.class,0);
 		}
+		public ChannelDeclarationContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterChannelDeclaration(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitChannelDeclaration(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitChannelDeclaration(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class StatementSequenceContext extends StatementContext {
 		public List<StatementContext> statement() {
 			return getRuleContexts(StatementContext.class);
 		}
 		public StatementContext statement(int i) {
 			return getRuleContext(StatementContext.class,i);
 		}
-		public StatementContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_statement; }
+		public StatementSequenceContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterStatement(this);
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterStatementSequence(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitStatement(this);
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitStatementSequence(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitStatement(this);
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitStatementSequence(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class VariableDeclarationContext extends StatementContext {
+		public VarsContext vars() {
+			return getRuleContext(VarsContext.class,0);
+		}
+		public BexpContext bexp() {
+			return getRuleContext(BexpContext.class,0);
+		}
+		public VariableDeclarationContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterVariableDeclaration(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitVariableDeclaration(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitVariableDeclaration(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class WhileContext extends StatementContext {
+		public BexpContext bexp() {
+			return getRuleContext(BexpContext.class,0);
+		}
+		public BlockContext block() {
+			return getRuleContext(BlockContext.class,0);
+		}
+		public WhileContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterWhile(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitWhile(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitWhile(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class GoBlockContext extends StatementContext {
+		public BlockContext block() {
+			return getRuleContext(BlockContext.class,0);
+		}
+		public GoBlockContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterGoBlock(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitGoBlock(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitGoBlock(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AssignementThroughChannelContext extends StatementContext {
+		public VarsContext vars() {
+			return getRuleContext(VarsContext.class,0);
+		}
+		public AexpContext aexp() {
+			return getRuleContext(AexpContext.class,0);
+		}
+		public AssignementThroughChannelContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterAssignementThroughChannel(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitAssignementThroughChannel(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitAssignementThroughChannel(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class GetValueFromChannelContext extends StatementContext {
+		public VarsContext vars() {
+			return getRuleContext(VarsContext.class,0);
+		}
+		public GetValueFromChannelContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterGetValueFromChannel(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitGetValueFromChannel(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitGetValueFromChannel(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class VariableAssignementContext extends StatementContext {
+		public VarsContext vars() {
+			return getRuleContext(VarsContext.class,0);
+		}
+		public BexpContext bexp() {
+			return getRuleContext(BexpContext.class,0);
+		}
+		public VariableAssignementContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterVariableAssignement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitVariableAssignement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitVariableAssignement(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class VariableDeclarationThroughChannelContext extends StatementContext {
+		public List<VarsContext> vars() {
+			return getRuleContexts(VarsContext.class);
+		}
+		public VarsContext vars(int i) {
+			return getRuleContext(VarsContext.class,i);
+		}
+		public VariableDeclarationThroughChannelContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterVariableDeclarationThroughChannel(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitVariableDeclarationThroughChannel(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitVariableDeclarationThroughChannel(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -245,6 +446,10 @@ public class MiniGoParser extends Parser {
 			switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
 			case 1:
 				{
+				_localctx = new GoBlockContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+
 				setState(31);
 				match(T__3);
 				setState(32);
@@ -253,6 +458,9 @@ public class MiniGoParser extends Parser {
 				break;
 			case 2:
 				{
+				_localctx = new AssignementThroughChannelContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(33);
 				vars();
 				setState(34);
@@ -263,6 +471,9 @@ public class MiniGoParser extends Parser {
 				break;
 			case 3:
 				{
+				_localctx = new GetValueFromChannelContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(37);
 				match(T__4);
 				setState(38);
@@ -271,6 +482,9 @@ public class MiniGoParser extends Parser {
 				break;
 			case 4:
 				{
+				_localctx = new VariableDeclarationContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(39);
 				vars();
 				setState(40);
@@ -281,6 +495,9 @@ public class MiniGoParser extends Parser {
 				break;
 			case 5:
 				{
+				_localctx = new ChannelDeclarationContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(43);
 				vars();
 				setState(44);
@@ -291,6 +508,9 @@ public class MiniGoParser extends Parser {
 				break;
 			case 6:
 				{
+				_localctx = new VariableDeclarationThroughChannelContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(47);
 				vars();
 				setState(48);
@@ -303,6 +523,9 @@ public class MiniGoParser extends Parser {
 				break;
 			case 7:
 				{
+				_localctx = new VariableAssignementContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(52);
 				vars();
 				setState(53);
@@ -313,6 +536,9 @@ public class MiniGoParser extends Parser {
 				break;
 			case 8:
 				{
+				_localctx = new WhileContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(56);
 				match(T__8);
 				setState(57);
@@ -323,6 +549,9 @@ public class MiniGoParser extends Parser {
 				break;
 			case 9:
 				{
+				_localctx = new IfElseContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(60);
 				match(T__9);
 				setState(61);
@@ -337,6 +566,9 @@ public class MiniGoParser extends Parser {
 				break;
 			case 10:
 				{
+				_localctx = new PrintContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(66);
 				match(T__11);
 				setState(67);
@@ -354,7 +586,7 @@ public class MiniGoParser extends Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new StatementContext(_parentctx, _parentState);
+					_localctx = new StatementSequenceContext(new StatementContext(_parentctx, _parentState));
 					pushNewRecursionContext(_localctx, _startState, RULE_statement);
 					setState(70);
 					if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
@@ -449,27 +681,54 @@ public class MiniGoParser extends Parser {
 	}
 
 	public static class CexpContext extends ParserRuleContext {
+		public CexpContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_cexp; }
+	 
+		public CexpContext() { }
+		public void copyFrom(CexpContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class OnlyCTermContext extends CexpContext {
+		public CtermContext cterm() {
+			return getRuleContext(CtermContext.class,0);
+		}
+		public OnlyCTermContext(CexpContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterOnlyCTerm(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitOnlyCTerm(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitOnlyCTerm(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class EvaluationContext extends CexpContext {
 		public List<CtermContext> cterm() {
 			return getRuleContexts(CtermContext.class);
 		}
 		public CtermContext cterm(int i) {
 			return getRuleContext(CtermContext.class,i);
 		}
-		public CexpContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_cexp; }
+		public EvaluationContext(CexpContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterCexp(this);
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterEvaluation(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitCexp(this);
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitEvaluation(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitCexp(this);
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitEvaluation(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -482,6 +741,7 @@ public class MiniGoParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
+				_localctx = new OnlyCTermContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(86);
@@ -489,6 +749,7 @@ public class MiniGoParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new EvaluationContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(87);
@@ -513,27 +774,54 @@ public class MiniGoParser extends Parser {
 	}
 
 	public static class CtermContext extends ParserRuleContext {
+		public CtermContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_cterm; }
+	 
+		public CtermContext() { }
+		public void copyFrom(CtermContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class OnlyAExpContext extends CtermContext {
+		public AexpContext aexp() {
+			return getRuleContext(AexpContext.class,0);
+		}
+		public OnlyAExpContext(CtermContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterOnlyAExp(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitOnlyAExp(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitOnlyAExp(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class GreaterThanContext extends CtermContext {
 		public List<AexpContext> aexp() {
 			return getRuleContexts(AexpContext.class);
 		}
 		public AexpContext aexp(int i) {
 			return getRuleContext(AexpContext.class,i);
 		}
-		public CtermContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_cterm; }
+		public GreaterThanContext(CtermContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterCterm(this);
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterGreaterThan(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitCterm(this);
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitGreaterThan(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitCterm(this);
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitGreaterThan(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -546,6 +834,7 @@ public class MiniGoParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
 			case 1:
+				_localctx = new OnlyAExpContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(93);
@@ -553,6 +842,7 @@ public class MiniGoParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new GreaterThanContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(94);
@@ -739,36 +1029,108 @@ public class MiniGoParser extends Parser {
 	}
 
 	public static class FactorContext extends ParserRuleContext {
-		public IntsContext ints() {
-			return getRuleContext(IntsContext.class,0);
-		}
-		public BoolsContext bools() {
-			return getRuleContext(BoolsContext.class,0);
-		}
-		public VarsContext vars() {
-			return getRuleContext(VarsContext.class,0);
-		}
-		public FactorContext factor() {
-			return getRuleContext(FactorContext.class,0);
-		}
-		public BexpContext bexp() {
-			return getRuleContext(BexpContext.class,0);
-		}
 		public FactorContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_factor; }
+	 
+		public FactorContext() { }
+		public void copyFrom(FactorContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class IntegerContext extends FactorContext {
+		public IntsContext ints() {
+			return getRuleContext(IntsContext.class,0);
+		}
+		public IntegerContext(FactorContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterFactor(this);
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterInteger(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitFactor(this);
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitInteger(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitFactor(this);
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitInteger(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ParanthesesContext extends FactorContext {
+		public BexpContext bexp() {
+			return getRuleContext(BexpContext.class,0);
+		}
+		public ParanthesesContext(FactorContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterParantheses(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitParantheses(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitParantheses(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class NotContext extends FactorContext {
+		public FactorContext factor() {
+			return getRuleContext(FactorContext.class,0);
+		}
+		public NotContext(FactorContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterNot(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitNot(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitNot(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class VariableContext extends FactorContext {
+		public VarsContext vars() {
+			return getRuleContext(VarsContext.class,0);
+		}
+		public VariableContext(FactorContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterVariable(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitVariable(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitVariable(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class BooleanContext extends FactorContext {
+		public BoolsContext bools() {
+			return getRuleContext(BoolsContext.class,0);
+		}
+		public BooleanContext(FactorContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).enterBoolean(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniGoListener ) ((MiniGoListener)listener).exitBoolean(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniGoVisitor ) return ((MiniGoVisitor<? extends T>)visitor).visitBoolean(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -780,6 +1142,7 @@ public class MiniGoParser extends Parser {
 			setState(129);
 			switch (_input.LA(1)) {
 			case DIGIT:
+				_localctx = new IntegerContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(120);
@@ -788,6 +1151,7 @@ public class MiniGoParser extends Parser {
 				break;
 			case T__22:
 			case T__23:
+				_localctx = new BooleanContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(121);
@@ -795,6 +1159,7 @@ public class MiniGoParser extends Parser {
 				}
 				break;
 			case LETTER:
+				_localctx = new VariableContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(122);
@@ -802,6 +1167,7 @@ public class MiniGoParser extends Parser {
 				}
 				break;
 			case T__19:
+				_localctx = new NotContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(123);
@@ -811,6 +1177,7 @@ public class MiniGoParser extends Parser {
 				}
 				break;
 			case T__20:
+				_localctx = new ParanthesesContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(125);

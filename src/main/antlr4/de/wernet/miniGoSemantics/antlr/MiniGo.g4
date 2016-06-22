@@ -3,23 +3,23 @@ grammar MiniGo;
 //parser rules
 prog      : block ;
 block     : '{' statement '}' ;
-statement : statement ';' statement
-			| 'go' block
-			| vars '<-' aexp
-			| '<-' vars
-			| vars ':=' bexp
-			| vars ':=' 'newChannel'
-			| vars ':=' '<-' vars
-			| vars '=' bexp
-			| 'while' bexp block
-			| 'if' bexp block 'else' block
-			| 'print' aexp ;
+statement : statement ';' statement #StatementSequence
+			| 'go' block #GoBlock
+			| vars '<-' aexp #AssignementThroughChannel
+			| '<-' vars #GetValueFromChannel
+			| vars ':=' bexp #VariableDeclaration
+			| vars ':=' 'newChannel' #ChannelDeclaration
+			| vars ':=' '<-' vars #VariableDeclarationThroughChannel
+			| vars '=' bexp #VariableAssignement
+			| 'while' bexp block #While
+			| 'if' bexp block 'else' block #IfElse
+			| 'print' aexp #Print ;
 bexp : cexp ( '&&' cexp )* ;
-cexp : cterm | cterm '==' cterm ;
-cterm : aexp | aexp '>' aexp ;
+cexp : cterm /*#OnlyCTerm*/ | cterm '==' cterm /*#Evaluation*/ ;
+cterm : aexp /*#OnlyAExp*/ | aexp '>' aexp /*#GreaterThan*/;
 aexp : term ( '+' term | '-' term )* ;
 term : factor ( '*' factor | '/' factor )* ;
-factor :  ints | bools | vars | '!' factor | '(' bexp ')' ;
+factor :  ints #Integer | bools #Boolean | vars #Variable| '!' factor #Not| '(' bexp ')' #Parantheses ;
 //digit : '0'..'9' ;
 ints :  DIGIT (DIGIT)* ;
 bools : 'true' | 'false' ;
