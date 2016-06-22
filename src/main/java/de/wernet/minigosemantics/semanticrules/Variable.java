@@ -6,11 +6,11 @@ package de.wernet.minigosemantics.semanticrules;
 public class Variable {
 
     private String name;
-    private VariableType type;
+    private String value;
 
-    public Variable(String name, VariableType type){
+    public Variable(String name, String value){
         this.name = name;
-        this.type = type;
+        this.value = value;
     }
 
     public String getName() {
@@ -21,11 +21,11 @@ public class Variable {
         this.name = name;
     }
 
-    public VariableType getType() {
-        return type;
+    public String getValue() {
+        return value;
     }
 
-    public void setType(VariableType type) {
-        this.type = type;
+    public void setValue(String value) {
+        this.value = value;
     }
 }
