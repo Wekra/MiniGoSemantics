@@ -28,4 +28,9 @@ public class Variable {
     public void setValue(String value) {
         this.value = value;
     }
+
+    @Override
+    public String toString(){
+        return "Name: " + name + "\tValue: " + value;
+    }
 }
