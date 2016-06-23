@@ -20,6 +20,12 @@ import java.util.List;
  */
 public class MyMiniGoVisitor  extends MiniGoBaseVisitor implements MiniGoVisitor {
 
+    private State state;
+
+    public MyMiniGoVisitor(State _state){
+        this.state = _state;
+    }
+
 
     @Override
     public AbstractMap.SimpleImmutableEntry<State, List<Statement>> visitProg(@NotNull MiniGoParser.ProgContext ctx) {
@@ -44,6 +50,7 @@ public class MyMiniGoVisitor  extends MiniGoBaseVisitor implements MiniGoVisitor
     public Object visitVariableDeclaration(MiniGoParser.VariableDeclarationContext ctx){
         System.out.println("VariableDeclaration: V=" + ctx.getChild(0).getText() + ", Value=" + ctx.getChild(2).getText() );
         Variable v = new Variable(ctx.getChild(0).getText(), ctx.getChild(2).getText());
+        state.addVariable(ctx.getChild(0).getText(), v);
         return null;
     }
 
@@ -108,5 +115,9 @@ public class MyMiniGoVisitor  extends MiniGoBaseVisitor implements MiniGoVisitor
         System.out.println("Vars: " + ctx.getText());
         super.visitVars(ctx);
         return new Variable("x", null);
+    }
+
+    public State getState(){
+        return this.state;
     }
 }
