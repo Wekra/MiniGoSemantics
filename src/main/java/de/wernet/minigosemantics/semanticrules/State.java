@@ -9,11 +9,13 @@ public class State {
 
     private HashMap<String, Variable> variables;
 
-    private final State instance = new State();
+    private static final State instance = new State();
 
-    private State(){}
+    private State(){
+        variables = new HashMap<String, Variable>();
+    }
 
-    public State getInstance(){
+    public static State getInstance(){
         return instance;
     }
 
