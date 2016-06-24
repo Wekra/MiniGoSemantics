@@ -55,17 +55,77 @@ public class MyMiniGoVisitor extends MiniGoBaseVisitor implements MiniGoVisitor 
         if (child2.contains("true") || child2.contains("false")) {
             boolean resultBool = (boolean) super.visit(ctx.getChild(2));
             System.out.println("Variable: " + variableName + " Value: " + resultBool + "\n");
+            state.addBooleanVariable(variableName, resultBool);
             return resultBool;
 //            return (boolean) super.visit(ctx.getChild(2));
         } else {
-            int resultInt = (int) super.visit(ctx.getChild(2));
-            System.out.print("Variable: " + variableName + " Value: " + resultInt +"\n");
-            return resultInt;
+            try {
+                int resultInt = (int) super.visit(ctx.getChild(2));
+                System.out.print("Variable: " + variableName + " Value: " + resultInt + "\n");
+                state.addIntegerVariable(variableName, resultInt);
+                return resultInt;
+            }catch(ClassCastException e){
+                boolean resultBool = (boolean) super.visit(ctx.getChild(2));
+                System.out.println("Variable: " + variableName + " Value: " + resultBool + "\n");
+                state.addBooleanVariable(variableName, resultBool);
+                return resultBool;
+            }
 //            return (int) super.visit(ctx.getChild(2));
         }
 
 //        Variable v = new Variable(ctx.getChild(0).getText(), ctx.getChild(2).getText());
 //        state.addVariable(ctx.getChild(0).getText(), v);
+    }
+
+    @Override
+    public Object visitVariableAssignement(MiniGoParser.VariableAssignementContext ctx){
+        String variableName = ctx.getChild(0).getText();
+        if(state.getBooleanVariables().containsKey(variableName)){
+            try {
+                state.addBooleanVariable(variableName, (boolean) super.visit(ctx.getChild(2)));
+            }catch(ClassCastException e){
+                System.out.println("ERROR: An Integer can't be assigned to the boolean variable '" + variableName + "'.");
+                System.exit(1);
+            }
+        } else if(state.getIntegerVariables().containsKey(variableName)){
+            try {
+                state.addIntegerVariable(variableName, (int) super.visit(ctx.getChild(2)));
+            }catch(ClassCastException e){
+                System.out.println("ERROR: A boolean value can't be assigned to the integer variable '" + variableName + "'.");
+                System.exit(1);
+            }
+        } else {
+            System.out.println("ERROR: Variable '" + variableName + "' has not been declared!");
+            System.exit(1);
+        }
+        return null;
+    }
+
+    @Override
+    public Object visitWhile(MiniGoParser.WhileContext ctx){
+
+        return null;
+    }
+
+    @Override
+    public Object visitIfElse(MiniGoParser.IfElseContext ctx){
+        //evaluate BExp
+        boolean bexp = false;
+        try {
+            bexp = (boolean) super.visit(ctx.getChild(1));
+        }catch(ClassCastException e){
+            System.out.println("ERROR: Expression '" + ctx.getChild(1).getText() + "' couldn't be evaluated to a boolean.");
+            System.exit(1);
+        }
+        if(bexp){
+            //execute if statement (child 2)
+            super.visit(ctx.getChild(2));
+        } else {
+            //execute else statement (child 4)
+            super.visit(ctx.getChild(4));
+        }
+
+        return null;
     }
 
     @Override
@@ -102,10 +162,28 @@ public class MyMiniGoVisitor extends MiniGoBaseVisitor implements MiniGoVisitor 
     }
 
     @Override
+    public Object visitEvaluation(MiniGoParser.EvaluationContext ctx) {
+        return super.visit(ctx.getChild(0)) == super.visit(ctx.getChild(2)) ? true : false;
+    }
+
+    @Override
     public Object visitOnlyAExp(MiniGoParser.OnlyAExpContext ctx) {
         System.out.println("Only AExp: " + ctx.getText());
         return super.visitOnlyAExp(ctx);
 //        return 6;
+    }
+
+    @Override
+    public Object visitGreaterThan(MiniGoParser.GreaterThanContext ctx){
+        try {
+            int leftSide = (int) super.visit(ctx.getChild(0));
+            int rightSide = (int) super.visit(ctx.getChild(2));
+            return leftSide > rightSide ? true : false;
+        } catch (ClassCastException e){
+            System.out.println("ERROR: Expression '" + ctx.getText() + "' couldn't be evaluated to a boolean because one side is not an integer.");
+            System.exit(1);
+            return null;
+        }
     }
 
     @Override
@@ -176,6 +254,19 @@ public class MyMiniGoVisitor extends MiniGoBaseVisitor implements MiniGoVisitor 
 //    }
 
     @Override
+    public Object visitNot(MiniGoParser.NotContext ctx){
+
+        try{
+            boolean evaluation = (boolean) super.visit(ctx.getChild(1));
+            return !evaluation;
+        } catch(ClassCastException e){
+            System.out.println("ERROR: Expression '" + ctx.getChild(1).getText() + "' can't be negotiated as it is no boolean expression.");
+            System.exit(1);
+            return null;
+        }
+    }
+
+    @Override
     public Object visitInts(MiniGoParser.IntsContext ctx) {
         String storedValue = ctx.getText();
         System.out.println("INT: " + storedValue);
@@ -193,8 +284,15 @@ public class MyMiniGoVisitor extends MiniGoBaseVisitor implements MiniGoVisitor 
 
     @Override
     public Object visitVars(MiniGoParser.VarsContext ctx) {
-        System.out.println("Vars: " + ctx.getText());
-        return ctx.getText();
+        String variableName = ctx.getText();
+        System.out.println("Vars: " + variableName);
+        if(state.getBooleanVariables().containsKey(variableName)){
+            return state.getBooleanVariable(variableName);
+        } else if(state.getIntegerVariables().containsKey(variableName)){
+            return state.getIntegerVariable(variableName);
+        } else {
+            return ctx.getText();
+        }
 //        return new Variable("x", null);
     }
 
