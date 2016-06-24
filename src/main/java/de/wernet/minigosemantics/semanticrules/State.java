@@ -7,28 +7,36 @@ import java.util.HashMap;
  */
 public class State {
 
-    private HashMap<String, Variable> variables;
+    private HashMap<String, Integer> integerVariables;
+    private HashMap<String, Boolean> booleanVariables;
 
     private static final State instance = new State();
 
     private State(){
-        variables = new HashMap<String, Variable>();
+        integerVariables = new HashMap<String, Integer>();
+        booleanVariables = new HashMap<String, Boolean>();
     }
 
     public static State getInstance(){
         return instance;
     }
 
-    public HashMap<String, Variable> getVariables() {
-        return variables;
+    public HashMap<String, Integer> getIntegerVariables() {
+        return integerVariables;
     }
 
-    public void addVariable(String variableName, Variable variable){
-        variables.put(variableName, variable);
+    public void addIntegerVariable(String variableName, int value){
+        integerVariables.put(variableName, value);
     }
 
-    public Variable getVariable(String name){
-        return variables.get(name);
+    public int getIntegerVariable(String name){
+        return integerVariables.get(name);
     }
+
+    public HashMap<String, Boolean> getBooleanVariables() {return booleanVariables;}
+
+    public void addBooleanVariable(String variableName, boolean value) { booleanVariables.put(variableName, value); }
+
+    public boolean getBooleanVariable(String name) {return booleanVariables.get(name);}
 }
 
