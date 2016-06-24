@@ -58,11 +58,17 @@ public class Main {
                 //System.out.println(extractor.table.checkDuplicate().toString());
                 //System.out.println(extractor.table.toString());
                 //System.out.println("Accepted");
-                HashMap<String, Variable> variables =  state.getVariables();
-                Set<String> keys = variables.keySet();
-                System.out.println("\nVariables:");
+                HashMap<String, Integer> integerVariables =  state.getIntegerVariables();
+                Set<String> keys = integerVariables.keySet();
+                System.out.println("\nInteger-Variables:");
                 for(String s : keys){
-                    System.out.println("Variable " + variables.get(s));
+                    System.out.println("Variable " + s + " = " + integerVariables.get(s));
+                }
+                HashMap<String, Boolean> booleanVariables = state.getBooleanVariables();
+                keys = booleanVariables.keySet();
+                System.out.println("\nBoolean-Variables:");
+                for (String s : keys) {
+                    System.out.println("Variable " + s + " = " + booleanVariables.get(s));
                 }
             }catch (IOException e) {
                 System.out.println("Not Accepted");
