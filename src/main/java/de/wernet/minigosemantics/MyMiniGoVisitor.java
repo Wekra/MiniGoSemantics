@@ -18,19 +18,19 @@ import java.util.List;
 /**
  * Created by Christian on 14.06.2016.
  */
-public class MyMiniGoVisitor  extends MiniGoBaseVisitor implements MiniGoVisitor {
+public class MyMiniGoVisitor extends MiniGoBaseVisitor implements MiniGoVisitor {
 
     private State state;
 
-    public MyMiniGoVisitor(State _state){
+    public MyMiniGoVisitor(State _state) {
         this.state = _state;
     }
 
 
     @Override
-    public AbstractMap.SimpleImmutableEntry<State, List<Statement>> visitProg(@NotNull MiniGoParser.ProgContext ctx) {
+    public Object visitProg(@NotNull MiniGoParser.ProgContext ctx) {
         System.out.println("Prog: " + ctx.getText());
-        return (AbstractMap.SimpleImmutableEntry<State, List<Statement>>) super.visitProg(ctx);
+        return super.visit(ctx.block());
     }
 
     @Override
@@ -47,46 +47,125 @@ public class MyMiniGoVisitor  extends MiniGoBaseVisitor implements MiniGoVisitor
     }
 
     @Override
-    public Object visitVariableDeclaration(MiniGoParser.VariableDeclarationContext ctx){
-        System.out.println("VariableDeclaration: V=" + ctx.getChild(0).getText() + ", Value=" + ctx.getChild(2).getText() );
-        Variable v = new Variable(ctx.getChild(0).getText(), ctx.getChild(2).getText());
-        state.addVariable(ctx.getChild(0).getText(), v);
-        return null;
+    public Object visitVariableDeclaration(MiniGoParser.VariableDeclarationContext ctx) {
+        //Child(1) can be ignored as it is the declaration-sign ':='
+        System.out.println("VariableDeclaration: ");
+        String variableName = ctx.getChild(0).getText();
+        String child2 = ctx.getChild(2).getText();
+        if (child2.contains("true") || child2.contains("false")) {
+            boolean resultBool = (boolean) super.visit(ctx.getChild(2));
+            System.out.println("Variable: " + variableName + " Value: " + resultBool + "\n");
+            return resultBool;
+//            return (boolean) super.visit(ctx.getChild(2));
+        } else {
+            int resultInt = (int) super.visit(ctx.getChild(2));
+            System.out.print("Variable: " + variableName + " Value: " + resultInt +"\n");
+            return resultInt;
+//            return (int) super.visit(ctx.getChild(2));
+        }
+
+//        Variable v = new Variable(ctx.getChild(0).getText(), ctx.getChild(2).getText());
+//        state.addVariable(ctx.getChild(0).getText(), v);
     }
 
     @Override
-    public AbstractMap.SimpleImmutableEntry<State, List<Statement>> visitBexp(MiniGoParser.BexpContext ctx) {
-        System.out.println("Bexp: " + ctx.getText());
-        super.visitBexp(ctx);
-        return null;
+    public Object visitBexp(MiniGoParser.BexpContext ctx) {
+        String storedValue = ctx.getText();
+        System.out.println("BEXP: " + storedValue);
+        if (ctx.children.size() > 1 || storedValue.contains("true") || storedValue.contains("false")) {
+            boolean returnBool = true;
+            for (ParseTree t : ctx.children) {
+                returnBool &= (boolean) super.visit(t);
+            }
+            return returnBool;
+        } else {
+            try {
+                int returnInt = (int) super.visit(ctx.getChild(0));
+                return returnInt;
+            } catch (ClassCastException e) {
+                return super.visit(ctx.getChild(0));
+            } catch (NullPointerException e) {
+                System.out.println("Nullpointerexception @ BEXP: " + ctx.getText());
+//                System.exit(1);
+                return null;
+            }
+        }
+
+//        System.out.println("Bexp: " + ctx.getText());
     }
 
     @Override
-    public Object visitCexp(MiniGoParser.CexpContext ctx) {
-        System.out.println("Cexp: " + ctx.getText());
-        super.visitCexp(ctx);
-        return 5;
+    public Object visitOnlyCTerm(MiniGoParser.OnlyCTermContext ctx) {
+        System.out.println("Only CTerm: " + ctx.getText());
+//        super.visitCexp(ctx);
+        return super.visitOnlyCTerm(ctx);
     }
 
     @Override
-    public Object visitCterm(MiniGoParser.CtermContext ctx) {
-        System.out.println("Cterm: " + ctx.getText());
-        super.visitCterm(ctx);
-        return 6;
+    public Object visitOnlyAExp(MiniGoParser.OnlyAExpContext ctx) {
+        System.out.println("Only AExp: " + ctx.getText());
+        return super.visitOnlyAExp(ctx);
+//        return 6;
     }
 
     @Override
     public Object visitAexp(MiniGoParser.AexpContext ctx) {
-        System.out.println("Aexp: " + ctx.getText());
-        super.visitAexp(ctx);
-        return 7;
+        if (ctx.getChildCount() > 1) {
+            System.out.println("Aexp multiple children: " + ctx.getText());
+            int result = 0;
+            for (int i = 0; i < ctx.getChildCount(); i++) {
+                if (i == 0) {
+                    result = (int) super.visit(ctx.getChild(0));
+                } else {
+                    if(ctx.getChild(i).getText().equals("+")){
+                        i++;
+                        result += (int) super.visit(ctx.getChild(i));
+                    } else {
+                        i++;
+                        result -= (int) super.visit(ctx.getChild(i));
+                    }
+                }
+            }
+            System.out.println("AEXP multiple children result: " + result);
+            return result;
+        }else{
+            System.out.println("Aexp one child: " + ctx.getText());
+            return super.visitAexp(ctx);
+        }
+
+//        return 7;
     }
 
     @Override
     public Object visitTerm(MiniGoParser.TermContext ctx) {
-        System.out.println("Term: " + ctx.getText());
-        super.visitTerm(ctx);
-        return 8;
+        if (ctx.getChildCount() > 1) {
+            System.out.println("Term multiple children: " + ctx.getText());
+            int result = 0;
+            for (int i = 0; i < ctx.getChildCount(); i++) {
+                if (i == 0) {
+                    result = (int) super.visit(ctx.getChild(0));
+                } else {
+                    if (ctx.getChild(i).getText().equals("*")) {
+                        i++;
+                        result *= (int) super.visit(ctx.getChild(i));
+                    } else {
+                        i++;
+                        try {
+                            result /= (int) super.visit(ctx.getChild(i));
+                        } catch (ArithmeticException e) {
+                            System.out.println("Division by zero @ TERM: " + ctx.getText());
+                        }
+                    }
+                }
+            }
+            System.out.println("Term multiple children result: " + result);
+            return result;
+        } else {
+            System.out.println("Term one child: " + ctx.getText());
+            return super.visitTerm(ctx);
+        }
+
+//        return 8;
     }
 
 //    @Override
@@ -98,26 +177,39 @@ public class MyMiniGoVisitor  extends MiniGoBaseVisitor implements MiniGoVisitor
 
     @Override
     public Object visitInts(MiniGoParser.IntsContext ctx) {
-        System.out.println("INT: " + ctx.getText());
-        super.visitInts(ctx);
-        return 10;
+        String storedValue = ctx.getText();
+        System.out.println("INT: " + storedValue);
+        return Integer.parseInt(storedValue);
     }
 
     @Override
     public Object visitBools(MiniGoParser.BoolsContext ctx) {
-        System.out.println("BOOL: " + ctx.getText());
-        super.visitBools(ctx);
-        return 11;
+        String storedValue = ctx.getText();
+        System.out.println("BOOL: " + storedValue);
+        return Boolean.parseBoolean(storedValue);
+//        super.visitBools(ctx);
+//        return 11;
     }
 
     @Override
     public Object visitVars(MiniGoParser.VarsContext ctx) {
         System.out.println("Vars: " + ctx.getText());
-        super.visitVars(ctx);
-        return new Variable("x", null);
+        return ctx.getText();
+//        return new Variable("x", null);
     }
 
-    public State getState(){
+    @Override
+    public Object visitBoolean(MiniGoParser.BooleanContext ctx) {
+        return super.visitBoolean(ctx);
+    }
+
+    @Override
+    public Object visitParantheses(MiniGoParser.ParanthesesContext ctx){
+        //First child (0) is '(' and third child (2) is ')'
+        return super.visit(ctx.getChild(1));
+    }
+
+    public State getState() {
         return this.state;
     }
 }
