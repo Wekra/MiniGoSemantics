@@ -15,8 +15,8 @@ statement : statement ';' statement #StatementSequence
 			| 'if' bexp block 'else' block #IfElse
 			| 'print' aexp #Print ;
 bexp : cexp ( '&&' cexp )* ;
-cexp : cterm /*#OnlyCTerm*/ | cterm '==' cterm /*#Evaluation*/ ;
-cterm : aexp /*#OnlyAExp*/ | aexp '>' aexp /*#GreaterThan*/;
+cexp : cterm #OnlyCTerm | cterm '==' cterm #Evaluation ;
+cterm : aexp #OnlyAExp | aexp '>' aexp #GreaterThan;
 aexp : term ( '+' term | '-' term )* ;
 term : factor ( '*' factor | '/' factor )* ;
 factor :  ints #Integer | bools #Boolean | vars #Variable| '!' factor #Not| '(' bexp ')' #Parantheses ;

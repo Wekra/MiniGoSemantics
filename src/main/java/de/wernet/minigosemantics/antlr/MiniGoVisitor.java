@@ -106,17 +106,33 @@ public interface MiniGoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBexp(MiniGoParser.BexpContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MiniGoParser#cexp}.
+	 * Visit a parse tree produced by the {@code OnlyCTerm}
+	 * labeled alternative in {@link MiniGoParser#cexp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCexp(MiniGoParser.CexpContext ctx);
+	T visitOnlyCTerm(MiniGoParser.OnlyCTermContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MiniGoParser#cterm}.
+	 * Visit a parse tree produced by the {@code Evaluation}
+	 * labeled alternative in {@link MiniGoParser#cexp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCterm(MiniGoParser.CtermContext ctx);
+	T visitEvaluation(MiniGoParser.EvaluationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code OnlyAExp}
+	 * labeled alternative in {@link MiniGoParser#cterm}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOnlyAExp(MiniGoParser.OnlyAExpContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code GreaterThan}
+	 * labeled alternative in {@link MiniGoParser#cterm}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGreaterThan(MiniGoParser.GreaterThanContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MiniGoParser#aexp}.
 	 * @param ctx the parse tree

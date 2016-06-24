@@ -184,25 +184,49 @@ public class MiniGoBaseListener implements MiniGoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCexp(MiniGoParser.CexpContext ctx) { }
+	@Override public void enterOnlyCTerm(MiniGoParser.OnlyCTermContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCexp(MiniGoParser.CexpContext ctx) { }
+	@Override public void exitOnlyCTerm(MiniGoParser.OnlyCTermContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCterm(MiniGoParser.CtermContext ctx) { }
+	@Override public void enterEvaluation(MiniGoParser.EvaluationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCterm(MiniGoParser.CtermContext ctx) { }
+	@Override public void exitEvaluation(MiniGoParser.EvaluationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOnlyAExp(MiniGoParser.OnlyAExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOnlyAExp(MiniGoParser.OnlyAExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterGreaterThan(MiniGoParser.GreaterThanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGreaterThan(MiniGoParser.GreaterThanContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -170,25 +170,53 @@ public interface MiniGoListener extends ParseTreeListener {
 	 */
 	void exitBexp(MiniGoParser.BexpContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MiniGoParser#cexp}.
+	 * Enter a parse tree produced by the {@code OnlyCTerm}
+	 * labeled alternative in {@link MiniGoParser#cexp}.
 	 * @param ctx the parse tree
 	 */
-	void enterCexp(MiniGoParser.CexpContext ctx);
+	void enterOnlyCTerm(MiniGoParser.OnlyCTermContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MiniGoParser#cexp}.
+	 * Exit a parse tree produced by the {@code OnlyCTerm}
+	 * labeled alternative in {@link MiniGoParser#cexp}.
 	 * @param ctx the parse tree
 	 */
-	void exitCexp(MiniGoParser.CexpContext ctx);
+	void exitOnlyCTerm(MiniGoParser.OnlyCTermContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MiniGoParser#cterm}.
+	 * Enter a parse tree produced by the {@code Evaluation}
+	 * labeled alternative in {@link MiniGoParser#cexp}.
 	 * @param ctx the parse tree
 	 */
-	void enterCterm(MiniGoParser.CtermContext ctx);
+	void enterEvaluation(MiniGoParser.EvaluationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MiniGoParser#cterm}.
+	 * Exit a parse tree produced by the {@code Evaluation}
+	 * labeled alternative in {@link MiniGoParser#cexp}.
 	 * @param ctx the parse tree
 	 */
-	void exitCterm(MiniGoParser.CtermContext ctx);
+	void exitEvaluation(MiniGoParser.EvaluationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code OnlyAExp}
+	 * labeled alternative in {@link MiniGoParser#cterm}.
+	 * @param ctx the parse tree
+	 */
+	void enterOnlyAExp(MiniGoParser.OnlyAExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code OnlyAExp}
+	 * labeled alternative in {@link MiniGoParser#cterm}.
+	 * @param ctx the parse tree
+	 */
+	void exitOnlyAExp(MiniGoParser.OnlyAExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code GreaterThan}
+	 * labeled alternative in {@link MiniGoParser#cterm}.
+	 * @param ctx the parse tree
+	 */
+	void enterGreaterThan(MiniGoParser.GreaterThanContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code GreaterThan}
+	 * labeled alternative in {@link MiniGoParser#cterm}.
+	 * @param ctx the parse tree
+	 */
+	void exitGreaterThan(MiniGoParser.GreaterThanContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MiniGoParser#aexp}.
 	 * @param ctx the parse tree
