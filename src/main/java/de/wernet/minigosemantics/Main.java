@@ -3,18 +3,13 @@ package de.wernet.minigosemantics;
 import de.wernet.minigosemantics.antlr.MiniGoLexer;
 import de.wernet.minigosemantics.antlr.MiniGoParser;
 import de.wernet.minigosemantics.semanticrules.State;
-import de.wernet.minigosemantics.semanticrules.Statement;
-import de.wernet.minigosemantics.semanticrules.Variable;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.IOException;
-import java.util.AbstractMap;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 /**
