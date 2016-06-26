@@ -8,6 +8,6 @@ import java.util.List;
  */
 public abstract class Statement {
 
-    abstract AbstractMap.SimpleImmutableEntry<State, List<Statement>> reduce(State state, List<Statement> statements);
+    abstract AbstractMap.SimpleImmutableEntry<MyState, List<Statement>> reduce(MyState myState, List<Statement> statements);
 
 }

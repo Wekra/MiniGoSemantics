@@ -12,7 +12,7 @@ public class CExpression extends Statement {
     private CTerm right;
 
     @Override
-    AbstractMap.SimpleImmutableEntry<State, List<Statement>> reduce(State state, List<Statement> statements) {
+    AbstractMap.SimpleImmutableEntry<MyState, List<Statement>> reduce(MyState myState, List<Statement> statements) {
         return null;
     }
 
