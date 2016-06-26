@@ -37,6 +37,13 @@ public interface MiniGoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIfElse(MiniGoParser.IfElseContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code VariableAssignment}
+	 * labeled alternative in {@link MiniGoParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariableAssignment(MiniGoParser.VariableAssignmentContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ChannelDeclaration}
 	 * labeled alternative in {@link MiniGoParser#statement}.
 	 * @param ctx the parse tree
@@ -72,13 +79,6 @@ public interface MiniGoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitGoBlock(MiniGoParser.GoBlockContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AssignementThroughChannel}
-	 * labeled alternative in {@link MiniGoParser#statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAssignementThroughChannel(MiniGoParser.AssignementThroughChannelContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code GetValueFromChannel}
 	 * labeled alternative in {@link MiniGoParser#statement}.
 	 * @param ctx the parse tree
@@ -86,12 +86,12 @@ public interface MiniGoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitGetValueFromChannel(MiniGoParser.GetValueFromChannelContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code VariableAssignement}
+	 * Visit a parse tree produced by the {@code PutValueIntoChannel}
 	 * labeled alternative in {@link MiniGoParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVariableAssignement(MiniGoParser.VariableAssignementContext ctx);
+	T visitPutValueIntoChannel(MiniGoParser.PutValueIntoChannelContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code VariableDeclarationThroughChannel}
 	 * labeled alternative in {@link MiniGoParser#statement}.
@@ -174,12 +174,12 @@ public interface MiniGoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNot(MiniGoParser.NotContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Parantheses}
+	 * Visit a parse tree produced by the {@code Parentheses}
 	 * labeled alternative in {@link MiniGoParser#factor}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParantheses(MiniGoParser.ParanthesesContext ctx);
+	T visitParentheses(MiniGoParser.ParenthesesContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MiniGoParser#ints}.
 	 * @param ctx the parse tree

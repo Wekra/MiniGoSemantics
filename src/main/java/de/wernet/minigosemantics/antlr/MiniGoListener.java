@@ -52,6 +52,18 @@ public interface MiniGoListener extends ParseTreeListener {
 	 */
 	void exitIfElse(MiniGoParser.IfElseContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code VariableAssignment}
+	 * labeled alternative in {@link MiniGoParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableAssignment(MiniGoParser.VariableAssignmentContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code VariableAssignment}
+	 * labeled alternative in {@link MiniGoParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableAssignment(MiniGoParser.VariableAssignmentContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code ChannelDeclaration}
 	 * labeled alternative in {@link MiniGoParser#statement}.
 	 * @param ctx the parse tree
@@ -112,18 +124,6 @@ public interface MiniGoListener extends ParseTreeListener {
 	 */
 	void exitGoBlock(MiniGoParser.GoBlockContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code AssignementThroughChannel}
-	 * labeled alternative in {@link MiniGoParser#statement}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssignementThroughChannel(MiniGoParser.AssignementThroughChannelContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code AssignementThroughChannel}
-	 * labeled alternative in {@link MiniGoParser#statement}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssignementThroughChannel(MiniGoParser.AssignementThroughChannelContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code GetValueFromChannel}
 	 * labeled alternative in {@link MiniGoParser#statement}.
 	 * @param ctx the parse tree
@@ -136,17 +136,17 @@ public interface MiniGoListener extends ParseTreeListener {
 	 */
 	void exitGetValueFromChannel(MiniGoParser.GetValueFromChannelContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code VariableAssignement}
+	 * Enter a parse tree produced by the {@code PutValueIntoChannel}
 	 * labeled alternative in {@link MiniGoParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterVariableAssignement(MiniGoParser.VariableAssignementContext ctx);
+	void enterPutValueIntoChannel(MiniGoParser.PutValueIntoChannelContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code VariableAssignement}
+	 * Exit a parse tree produced by the {@code PutValueIntoChannel}
 	 * labeled alternative in {@link MiniGoParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitVariableAssignement(MiniGoParser.VariableAssignementContext ctx);
+	void exitPutValueIntoChannel(MiniGoParser.PutValueIntoChannelContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code VariableDeclarationThroughChannel}
 	 * labeled alternative in {@link MiniGoParser#statement}.
@@ -286,17 +286,17 @@ public interface MiniGoListener extends ParseTreeListener {
 	 */
 	void exitNot(MiniGoParser.NotContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Parantheses}
+	 * Enter a parse tree produced by the {@code Parentheses}
 	 * labeled alternative in {@link MiniGoParser#factor}.
 	 * @param ctx the parse tree
 	 */
-	void enterParantheses(MiniGoParser.ParanthesesContext ctx);
+	void enterParentheses(MiniGoParser.ParenthesesContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Parantheses}
+	 * Exit a parse tree produced by the {@code Parentheses}
 	 * labeled alternative in {@link MiniGoParser#factor}.
 	 * @param ctx the parse tree
 	 */
-	void exitParantheses(MiniGoParser.ParanthesesContext ctx);
+	void exitParentheses(MiniGoParser.ParenthesesContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MiniGoParser#ints}.
 	 * @param ctx the parse tree

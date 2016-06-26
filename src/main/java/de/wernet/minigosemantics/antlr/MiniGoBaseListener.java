@@ -64,6 +64,18 @@ public class MiniGoBaseListener implements MiniGoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterVariableAssignment(MiniGoParser.VariableAssignmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVariableAssignment(MiniGoParser.VariableAssignmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterChannelDeclaration(MiniGoParser.ChannelDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -124,18 +136,6 @@ public class MiniGoBaseListener implements MiniGoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignementThroughChannel(MiniGoParser.AssignementThroughChannelContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAssignementThroughChannel(MiniGoParser.AssignementThroughChannelContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterGetValueFromChannel(MiniGoParser.GetValueFromChannelContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -148,13 +148,13 @@ public class MiniGoBaseListener implements MiniGoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVariableAssignement(MiniGoParser.VariableAssignementContext ctx) { }
+	@Override public void enterPutValueIntoChannel(MiniGoParser.PutValueIntoChannelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVariableAssignement(MiniGoParser.VariableAssignementContext ctx) { }
+	@Override public void exitPutValueIntoChannel(MiniGoParser.PutValueIntoChannelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -304,13 +304,13 @@ public class MiniGoBaseListener implements MiniGoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParantheses(MiniGoParser.ParanthesesContext ctx) { }
+	@Override public void enterParentheses(MiniGoParser.ParenthesesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParantheses(MiniGoParser.ParanthesesContext ctx) { }
+	@Override public void exitParentheses(MiniGoParser.ParenthesesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
