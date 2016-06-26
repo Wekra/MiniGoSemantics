@@ -5,7 +5,6 @@ import de.wernet.minigosemantics.antlr.MiniGoBaseVisitor;
 import de.wernet.minigosemantics.antlr.MiniGoParser;
 import de.wernet.minigosemantics.antlr.MiniGoVisitor;
 import de.wernet.minigosemantics.semanticrules.MyState;
-//TODO: Clean-up code!
 
 /**
  * This class implements a custom Visitor for the MiniGo grammar to check the operational semantic rules.
