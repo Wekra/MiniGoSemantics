@@ -53,19 +53,19 @@ public class MyMiniGoVisitor extends MiniGoBaseVisitor implements MiniGoVisitor 
         }
         if (child2.contains("true") || child2.contains("false")) {
             boolean resultBool = (boolean) super.visit(ctx.getChild(2));
-            System.out.println("Found Variable: " + variableName + " Value: " + resultBool + "\n");
+            System.out.println("Found Variable: " + variableName + " Value: " + resultBool);
             myState.addBooleanVariable(variableName, resultBool);
             return resultBool;
 //            return (boolean) super.visit(ctx.getChild(2));
         } else {
             try {
                 int resultInt = (int) super.visit(ctx.getChild(2));
-                System.out.print("Found Variable: " + variableName + " Value: " + resultInt + "\n");
+                System.out.println("Found Variable: " + variableName + " Value: " + resultInt);
                 myState.addIntegerVariable(variableName, resultInt);
                 return resultInt;
             } catch (ClassCastException e) {
                 boolean resultBool = (boolean) super.visit(ctx.getChild(2));
-                System.out.println("Found Variable: " + variableName + " Value: " + resultBool + "\n");
+                System.out.println("Found Variable: " + variableName + " Value: " + resultBool);
                 myState.addBooleanVariable(variableName, resultBool);
                 return resultBool;
             }
