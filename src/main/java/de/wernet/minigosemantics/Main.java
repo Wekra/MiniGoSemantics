@@ -19,17 +19,6 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Start parsing file \"" + args[0] + "\". . .");
-//
-//        MyMiniGoListener listener = new MyMiniGoListener();
-//
-//        System.out.println(args[0]);
-//
-//        listener.printFile(args[0]);
-//
-//        System.out.println("Parsing successfully finished.");
-
-//        ExpressionParser expressionParser = new ExpressionParser();
-//        expressionParser.parse(args[0]);
 
         try {
             ANTLRFileStream reader = new ANTLRFileStream(args[0]);
@@ -57,9 +46,7 @@ public class Main {
             }
             List<String> channels = myState.getChannels();
             System.out.println("\nChannels:");
-            for (String s:channels) {
-                System.out.println(s);
-            }
+            channels.forEach(System.out::println);
         } catch (IOException e) {
             System.out.println("File not readable.");
         } catch (IllegalArgumentException e) {
