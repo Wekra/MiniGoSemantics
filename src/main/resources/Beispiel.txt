@@ -7,9 +7,11 @@
 
     x = 3;
 
-    if y { x = 4 } else { x = 2 };
+    if y { x = 4; zz := 2 } else { zz := 2 };
 
-    x = 0;
+    zz = x + 1;
+
+    x = true;
 
     y = 1 > 2;
 
@@ -30,7 +32,7 @@
 	  
 	z := 1 + 2 * 3 + (4 * 5 + 6);
 	  
-	while y {
+	while !y {
 		<-ch
 	}
 }
