@@ -170,7 +170,7 @@ public class MyMiniGoVisitor extends MiniGoBaseVisitor implements MiniGoVisitor 
             } catch (ClassCastException e) {
                 return super.visit(ctx.getChild(0));
             } catch (NullPointerException e) {
-                System.out.println("NullPointerException @ Bexp: " + ctx.getText());
+                System.out.println("ERROR: NullPointerException @ Bexp: " + ctx.getText());
                 System.exit(1);
                 return null;
             }
@@ -253,7 +253,8 @@ public class MyMiniGoVisitor extends MiniGoBaseVisitor implements MiniGoVisitor 
                         try {
                             result /= (int) super.visit(ctx.getChild(i));
                         } catch (ArithmeticException e) {
-                            System.out.println("Division by zero @ TERM: " + ctx.getText());
+                            System.out.println("ERROR: Division by zero @ TERM: " + ctx.getText());
+                            System.exit(1);
                         }
                     }
                 }
