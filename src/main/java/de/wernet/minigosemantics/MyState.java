@@ -1,4 +1,4 @@
-package de.wernet.minigosemantics.semanticrules;
+package de.wernet.minigosemantics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
