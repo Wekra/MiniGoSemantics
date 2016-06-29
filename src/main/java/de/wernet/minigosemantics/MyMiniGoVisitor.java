@@ -4,7 +4,6 @@ import com.sun.istack.internal.NotNull;
 import de.wernet.minigosemantics.antlr.MiniGoBaseVisitor;
 import de.wernet.minigosemantics.antlr.MiniGoParser;
 import de.wernet.minigosemantics.antlr.MiniGoVisitor;
-import de.wernet.minigosemantics.semanticrules.MyState;
 
 /**
  * This class implements a custom Visitor for the MiniGo grammar to check the operational semantic rules.
