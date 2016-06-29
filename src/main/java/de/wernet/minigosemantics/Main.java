@@ -2,7 +2,6 @@ package de.wernet.minigosemantics;
 
 import de.wernet.minigosemantics.antlr.MiniGoLexer;
 import de.wernet.minigosemantics.antlr.MiniGoParser;
-import de.wernet.minigosemantics.semanticrules.MyState;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
