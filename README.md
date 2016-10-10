@@ -7,4 +7,4 @@ To generate the parser as well as the base listener and visitor classes for Mini
 
 As of the actual state seen in the master-branch, it supports only the non-concurrent statements.
 Furthermore, the state used to store the found variables and their values only operates at a global scope. 
-Local scopes in while-loops of if/else-statements are not supported yet.
+Local scopes in while-loops or if/else-statements are not supported yet.
