@@ -1,6 +1,6 @@
 package de.wernet.minigosemantics;
 
-import com.sun.istack.internal.NotNull;
+import org.jetbrains.annotations.NotNull;
 import de.wernet.minigosemantics.antlr.MiniGoBaseVisitor;
 import de.wernet.minigosemantics.antlr.MiniGoParser;
 import de.wernet.minigosemantics.antlr.MiniGoVisitor;
@@ -15,6 +15,7 @@ public class MyMiniGoVisitor extends MiniGoBaseVisitor implements MiniGoVisitor 
 
     /**
      * Create a new instance of the custom MiniGoVisitor-class.
+     *
      * @param _myState an instance of the custom MyState-class to store all found variables and their values
      */
     public MyMiniGoVisitor(MyState _myState) {
@@ -45,7 +46,7 @@ public class MyMiniGoVisitor extends MiniGoBaseVisitor implements MiniGoVisitor 
         //Child(1) can be ignored as it is the declaration-sign ':='
         String variableName = ctx.getChild(0).getText();
         String child2 = ctx.getChild(2).getText();
-        if(myState.isChannelDeclared(variableName) || myState.getIntegerVariables().containsKey(variableName) || myState.getBooleanVariables().containsKey(variableName)){
+        if (myState.isChannelDeclared(variableName) || myState.getIntegerVariables().containsKey(variableName) || myState.getBooleanVariables().containsKey(variableName)) {
             System.out.println("ERROR: Variable '" + variableName + "' has already been declared.");
             System.exit(1);
             return null;
